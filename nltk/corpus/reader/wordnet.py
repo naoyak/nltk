@@ -37,13 +37,13 @@ from itertools import islice, chain
 from operator import itemgetter, attrgetter
 from collections import defaultdict, deque
 
+from six import iteritems
 from six.moves import range
 
 from nltk.corpus.reader import CorpusReader
 from nltk.util import binary_search_file as _binary_search_file
 from nltk.probability import FreqDist
-from nltk.compat import (iteritems, python_2_unicode_compatible,
-                         total_ordering)
+from nltk.compat import (python_2_unicode_compatible, total_ordering)
 
 ######################################################################
 ## Table of Contents
