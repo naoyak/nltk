@@ -23,7 +23,7 @@ such as hypernyms, hyponyms, synonyms, antonyms etc.
 For details about WordNet see:
 http://wordnet.princeton.edu/
 
-This module also allows you to find lemmas in languages 
+This module also allows you to find lemmas in languages
 other than English from the Open Multilingual Wordnet
 http://compling.hss.ntu.edu.sg/omw/
 
@@ -37,11 +37,13 @@ from itertools import islice, chain
 from operator import itemgetter, attrgetter
 from collections import defaultdict, deque
 
+from six import range
+
 from nltk.corpus.reader import CorpusReader
 from nltk.util import binary_search_file as _binary_search_file
 from nltk.probability import FreqDist
 from nltk.compat import (iteritems, python_2_unicode_compatible,
-                         total_ordering, xrange)
+                         total_ordering)
 
 ######################################################################
 ## Table of Contents
@@ -431,7 +433,7 @@ class Synset(_WordNetObject):
                 return self._wordnet_corpus_reader._lang_data[lang][0][i]
             else:
                 return []
-                
+
     def lemmas(self, lang='eng'):
         '''Return all the lemma objects associated with the synset'''
         if lang=='eng':
@@ -445,7 +447,7 @@ class Synset(_WordNetObject):
                 temp._lang=lang
                 lemmark.append(temp)
             return lemmark
-    
+
     def root_hypernyms(self):
         """Get the topmost hypernyms of this synset in WordNet."""
 
@@ -1062,12 +1064,12 @@ class WordNetCorpusReader(CorpusReader):
 
     def of2ss(self, of):
         ''' take an id and return the synsets '''
-        return self._synset_from_pos_and_offset(of[-1], int(of[:8]))      
+        return self._synset_from_pos_and_offset(of[-1], int(of[:8]))
 
     def ss2of(self, ss):
         ''' return the ID of the synset '''
         return ("{:08d}-{}".format(ss.offset(), ss.pos()))
-    
+
     def _load_lang_data(self, lang):
         ''' load the wordnet data of the requested language from the file to the cache, _lang_data '''
 
@@ -1081,11 +1083,11 @@ class WordNetCorpusReader(CorpusReader):
 
         self._lang_data[lang].append(defaultdict(list))
         self._lang_data[lang].append(defaultdict(list))
-            
+
         for l in f.readlines():
             l = l.replace('\n', '')
             l = l.replace(' ', '_')
-            if l[0] != '#':                
+            if l[0] != '#':
                 word = l.split('\t')
                 self._lang_data[lang][0][word[0]].append(word[2])
                 self._lang_data[lang][1][word[2]].append(word[0])
@@ -1100,10 +1102,10 @@ class WordNetCorpusReader(CorpusReader):
             file_name, file_extension = os.path.splitext(fileid)
             if file_extension == '.tab':
                 langs.append(file_name.split('-')[-1])
-            
+
         return langs
 
-    
+
     def _load_lemma_pos_offset_map(self):
         for suffix in self._FILEMAP.values():
 
@@ -1126,7 +1128,7 @@ class WordNetCorpusReader(CorpusReader):
 
                     # get the pointer symbols for all synsets of this lemma
                     n_pointers = int(_next_token())
-                    _ = [_next_token() for _ in xrange(n_pointers)]
+                    _ = [_next_token() for _ in range(n_pointers)]
 
                     # same as number of synsets
                     n_senses = int(_next_token())
@@ -1136,7 +1138,7 @@ class WordNetCorpusReader(CorpusReader):
                     _ = int(_next_token())
 
                     # get synset offsets
-                    synset_offsets = [int(_next_token()) for _ in xrange(n_synsets)]
+                    synset_offsets = [int(_next_token()) for _ in range(n_synsets)]
 
                 # raise more informative error with file name and line number
                 except (AssertionError, ValueError) as e:
@@ -1317,7 +1319,7 @@ class WordNetCorpusReader(CorpusReader):
 
             # create Lemma objects for each lemma
             n_lemmas = int(_next_token(), 16)
-            for _ in xrange(n_lemmas):
+            for _ in range(n_lemmas):
                 # get the lemma name
                 lemma_name = _next_token()
                 # get the lex_id (used for sense_keys)
@@ -1333,7 +1335,7 @@ class WordNetCorpusReader(CorpusReader):
 
             # collect the pointer tuples
             n_pointers = int(_next_token())
-            for _ in xrange(n_pointers):
+            for _ in range(n_pointers):
                 symbol = _next_token()
                 offset = int(_next_token())
                 pos = _next_token()
@@ -1354,7 +1356,7 @@ class WordNetCorpusReader(CorpusReader):
             except StopIteration:
                 pass
             else:
-                for _ in xrange(frame_count):
+                for _ in range(frame_count):
                     # read the plus sign
                     plus = _next_token()
                     assert plus == '+'
@@ -1409,12 +1411,12 @@ class WordNetCorpusReader(CorpusReader):
     def synsets(self, lemma, pos=None, lang='eng', check_exceptions=True):
         """Load all synsets with a given lemma and part of speech tag.
         If no pos is specified, all synsets for all parts of speech
-        will be loaded. 
+        will be loaded.
         If lang is specified, all the synsets associated with the lemma name
         of that language will be returned.
         """
         lemma = lemma.lower()
-        
+
         if lang == 'eng':
             get_synset = self._synset_from_pos_and_offset
             index = self._lemma_pos_offset_map
@@ -1477,10 +1479,10 @@ class WordNetCorpusReader(CorpusReader):
                 if pos is not None and i[-1] != pos:
                     continue
                 lemma.extend(self._lang_data[lang][0][i])
-                       
+
             lemma = list(set(lemma))
             return lemma
-        
+
     def all_synsets(self, pos=None):
         """Iterate over all synsets with a given part of speech tag.
         If no pos is specified, all synsets for all parts of speech
@@ -1555,7 +1557,7 @@ class WordNetCorpusReader(CorpusReader):
             return self._omw_reader.open("LICENSE").read()
         else:
             raise WordNetError("Language is not supported.")
- 
+
     def readme(self, lang='omw'):
         """Return the contents of README (for omw)
            use lang=lang to get the readme for an individual language"""
