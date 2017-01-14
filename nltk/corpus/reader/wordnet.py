@@ -37,7 +37,7 @@ from itertools import islice, chain
 from operator import itemgetter, attrgetter
 from collections import defaultdict, deque
 
-from six import range
+from six.moves import range
 
 from nltk.corpus.reader import CorpusReader
 from nltk.util import binary_search_file as _binary_search_file
