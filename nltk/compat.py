@@ -25,8 +25,6 @@ if PY3:
     StringIO = io.StringIO
     BytesIO = io.BytesIO
 
-    from collections import Counter
-
     from datetime import timezone
     UTC = timezone.utc
 
@@ -220,8 +218,6 @@ else:
                 self._rmdir(path)
             except OSError:
                 pass
-
-    from collections import Counter
 
 try:
     from functools import total_ordering
