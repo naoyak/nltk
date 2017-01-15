@@ -30,13 +30,9 @@ http://borel.slu.edu/crubadan/index.html
 
 # Ensure that literal strings default to unicode rather than str.
 from __future__ import print_function, unicode_literals
+from sys import maxsize
 
 from nltk.util import trigrams
-
-try:
-    from sys import maxsize
-except ImportError:
-    from sys import maxint as maxsize
 
 # Note: this is NOT "re" you're likely used to. The regex module
 # is an alternative to the standard re module that supports

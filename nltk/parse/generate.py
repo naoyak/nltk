@@ -10,10 +10,7 @@
 from __future__ import print_function
 
 import itertools
-try:
-    from sys import maxsize
-except ImportError:
-    from sys import maxint as maxsize
+from sys import maxsize
 
 from nltk.grammar import Nonterminal
 
