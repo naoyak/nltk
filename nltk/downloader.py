@@ -177,6 +177,8 @@ from xml.etree import ElementTree
 
 from six import string_types, text_type
 from six.moves import input
+from six.moves.urllib.request import urlopen
+from six.moves.urllib.error import HTTPError, URLError
 
 import nltk
 from nltk import compat
@@ -614,7 +616,7 @@ class Downloader(object):
         yield StartDownloadMessage(info)
         yield ProgressMessage(5)
         try:
-            infile = compat.urlopen(info.url)
+            infile = urlopen(info.url)
             with open(filepath, 'wb') as outfile:
                 #print info.size
                 num_blocks = max(1, info.size/(1024*16))
@@ -1020,9 +1022,9 @@ class DownloaderShell(object):
                     self._simple_interactive_update()
                 else:
                     print('Command %r unrecognized' % user_input)
-            except compat.HTTPError as e:
+            except HTTPError as e:
                 print('Error reading from server: %s'%e)
-            except compat.URLError as e:
+            except URLError as e:
                 print('Error connecting to server: %s'%e.reason)
             # try checking if user_input is a package name, &
             # downloading it?
@@ -1236,9 +1238,9 @@ class DownloaderGUI(object):
         self._init_menu()
         try:
             self._fill_table()
-        except compat.HTTPError as e:
+        except HTTPError as e:
             showerror('Error reading from server', e)
-        except compat.URLError as e:
+        except URLError as e:
             showerror('Error connecting to server', e.reason)
 
         self._show_info()
@@ -1418,9 +1420,9 @@ class DownloaderGUI(object):
         self._ds.clear_status_cache()
         try:
             self._fill_table()
-        except compat.HTTPError as e:
+        except HTTPError as e:
             showerror('Error reading from server', e)
-        except compat.URLError as e:
+        except URLError as e:
             showerror('Error connecting to server', e.reason)
         self._table.select(0)
 
@@ -1471,9 +1473,9 @@ class DownloaderGUI(object):
         self._ds.download_dir = download_dir
         try:
             self._fill_table()
-        except compat.HTTPError as e:
+        except HTTPError as e:
             showerror('Error reading from server', e)
-        except compat.URLError as e:
+        except URLError as e:
             showerror('Error connecting to server', e.reason)
         self._show_info()
 
@@ -1493,9 +1495,9 @@ class DownloaderGUI(object):
                 self._tab = self._tab_names[i-1].lower()
                 try:
                     return self._fill_table()
-                except compat.HTTPError as e:
+                except HTTPError as e:
                     showerror('Error reading from server', e)
-                except compat.URLError as e:
+                except URLError as e:
                     showerror('Error connecting to server', e.reason)
 
     def _next_tab(self, *e):
@@ -1504,18 +1506,18 @@ class DownloaderGUI(object):
                 self._tab = self._tab_names[i+1].lower()
                 try:
                     return self._fill_table()
-                except compat.HTTPError as e:
+                except HTTPError as e:
                     showerror('Error reading from server', e)
-                except compat.URLError as e:
+                except URLError as e:
                     showerror('Error connecting to server', e.reason)
 
     def _select_tab(self, event):
         self._tab = event.widget['text'].lower()
         try:
             self._fill_table()
-        except compat.HTTPError as e:
+        except HTTPError as e:
             showerror('Error reading from server', e)
-        except compat.URLError as e:
+        except URLError as e:
             showerror('Error connecting to server', e.reason)
 
     _tab = 'collections'

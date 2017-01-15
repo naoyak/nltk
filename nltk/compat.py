@@ -25,13 +25,6 @@ if PY3:
     StringIO = io.StringIO
     BytesIO = io.BytesIO
 
-    from urllib.request import (urlopen, ProxyHandler, build_opener,
-                                install_opener, getproxies, HTTPPasswordMgrWithDefaultRealm,
-                                ProxyBasicAuthHandler, ProxyDigestAuthHandler, Request,
-                                url2pathname)
-    from urllib.error import HTTPError, URLError
-    from urllib.parse import quote_plus, unquote_plus, urlencode
-
     from collections import Counter
 
     from datetime import timezone
@@ -47,12 +40,6 @@ else:
     except ImportError:
         from StringIO import StringIO
     BytesIO = StringIO
-
-    from urllib2 import (urlopen, HTTPError, URLError,
-                         ProxyHandler, build_opener, install_opener,
-                         HTTPPasswordMgrWithDefaultRealm, ProxyBasicAuthHandler,
-                         ProxyDigestAuthHandler, Request)
-    from urllib import getproxies, quote_plus, unquote_plus, urlencode, url2pathname
 
     # Maps py2 tkinter package structure to py3 using import hook (PEP 302)
     class TkinterPackage(object):
