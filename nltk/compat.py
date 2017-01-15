@@ -37,6 +37,12 @@ else:
         from StringIO import StringIO
     BytesIO = StringIO
 
+    from urllib2 import (urlopen, HTTPError, URLError,
+                         ProxyHandler, build_opener, install_opener,
+                         HTTPPasswordMgrWithDefaultRealm, ProxyBasicAuthHandler,
+                         ProxyDigestAuthHandler, Request)
+    from urllib import getproxies, quote_plus, unquote_plus, urlencode, url2pathname
+
     from datetime import tzinfo, timedelta
 
     ZERO = timedelta(0)
