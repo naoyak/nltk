@@ -29,7 +29,7 @@ from six.moves.urllib.request import (build_opener, install_opener, getproxies,
 
 from nltk.internals import slice_bounds, raise_unorderable_types
 from nltk.collections import *
-from nltk.compat import (total_ordering, python_2_unicode_compatible)
+from nltk.compat import python_2_unicode_compatible
 
 
 ######################################################################
