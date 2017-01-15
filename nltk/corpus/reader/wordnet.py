@@ -34,6 +34,7 @@ from __future__ import print_function, unicode_literals
 import math
 import re
 from itertools import islice, chain
+from functools import total_ordering
 from operator import itemgetter, attrgetter
 from collections import defaultdict, deque
 
@@ -43,7 +44,7 @@ from six.moves import range
 from nltk.corpus.reader import CorpusReader
 from nltk.util import binary_search_file as _binary_search_file
 from nltk.probability import FreqDist
-from nltk.compat import (python_2_unicode_compatible, total_ordering)
+from nltk.compat import python_2_unicode_compatible
 
 ######################################################################
 ## Table of Contents
