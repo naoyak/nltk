@@ -9,7 +9,6 @@
 from __future__ import absolute_import, print_function
 import os
 import sys
-import types
 from functools import wraps
 import fractions
 
@@ -18,7 +17,6 @@ import fractions
 PY3 = sys.version_info[0] == 3
 
 if PY3:
-    MAXSIZE = sys.maxsize
     get_im_class = lambda meth: meth.__self__.__class__
 
     import io

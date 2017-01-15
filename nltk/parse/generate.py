@@ -10,7 +10,11 @@
 from __future__ import print_function
 
 import itertools
-import sys
+try:
+    from sys import maxsize
+except ImportError:
+    from sys import maxint as maxsize
+
 from nltk.grammar import Nonterminal
 
 
@@ -27,7 +31,7 @@ def generate(grammar, start=None, depth=None, n=None):
     if not start:
         start = grammar.start()
     if depth is None:
-        depth = sys.maxsize
+        depth = maxsize
 
     iter = _generate_all(grammar, [start], depth)
 

@@ -31,13 +31,12 @@ http://borel.slu.edu/crubadan/index.html
 # Ensure that literal strings default to unicode rather than str.
 from __future__ import print_function, unicode_literals
 
-from nltk.compat import PY3
 from nltk.util import trigrams
 
-if PY3:
+try:
     from sys import maxsize
-else:
-    from sys import maxint
+except ImportError:
+    from sys import maxint as maxsize
 
 # Note: this is NOT "re" you're likely used to. The regex module
 # is an alternative to the standard re module that supports
@@ -114,10 +113,7 @@ class TextCat(object):
             # Arbitrary but should be larger than
             # any possible trigram file length
             # in terms of total lines
-            if PY3:
-                dist = maxsize
-            else:
-                dist = maxint
+            dist = maxsize
 
         return dist
         
