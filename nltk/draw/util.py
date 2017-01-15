@@ -36,7 +36,7 @@ homepage (http://www.ags.uni-sb.de/~konrad/clig.html).
 from six.moves.tkinter import (Button, Canvas, Entry, Frame, Label, Menu,
                                Menubutton, Scrollbar, StringVar, Text, Tk,
                                Toplevel, Widget, RAISED)
-from six.moves.tkinter_filedialog import asksaveasfilename
+from six.moves.tkinter_tkfiledialog import asksaveasfilename
 
 from nltk.util import in_idle
 
