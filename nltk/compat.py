@@ -23,13 +23,6 @@ if PY3:
     StringIO = io.StringIO
     BytesIO = io.BytesIO
 
-<<<<<<< HEAD
-=======
-    from urllib.request import urlopen, url2pathname, Request
-    from urllib.error import HTTPError, URLError
-    from urllib.parse import urlencode
-
->>>>>>> six-library
     from datetime import timezone
     UTC = timezone.utc
 
