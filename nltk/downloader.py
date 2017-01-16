@@ -181,7 +181,7 @@ from six.moves.urllib.request import urlopen
 from six.moves.urllib.error import HTTPError, URLError
 
 import nltk
-from nltk.compat import python_2_unicode_compatible, urlopen
+from nltk.compat import python_2_unicode_compatible
 #urllib2 = nltk.internals.import_from_stdlib('urllib2')
 
 
