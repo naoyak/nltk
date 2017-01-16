@@ -181,7 +181,7 @@ from six.moves.urllib.request import urlopen
 from six.moves.urllib.error import HTTPError, URLError
 
 import nltk
-from nltk import compat
+from nltk.compat import python_2_unicode_compatible, urlopen
 #urllib2 = nltk.internals.import_from_stdlib('urllib2')
 
 
@@ -189,7 +189,7 @@ from nltk import compat
 # Directory entry objects (from the data server's index file)
 ######################################################################
 
-@compat.python_2_unicode_compatible
+@python_2_unicode_compatible
 class Package(object):
     """
     A directory entry for a downloadable package.  These entries are
@@ -271,7 +271,7 @@ class Package(object):
     def __repr__(self):
         return '<Package %s>' % self.id
 
-@compat.python_2_unicode_compatible
+@python_2_unicode_compatible
 class Collection(object):
     """
     A directory entry for a collection of downloadable packages.
@@ -828,7 +828,7 @@ class Downloader(object):
 
         # Download the index file.
         self._index = nltk.internals.ElementWrapper(
-            ElementTree.parse(compat.urlopen(self._url)).getroot())
+            ElementTree.parse(urlopen(self._url)).getroot())
         self._index_timestamp = time.time()
 
         # Build a dictionary of packages.
